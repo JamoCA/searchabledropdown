@@ -3,95 +3,67 @@
 <head>
 	<title>jQuery Searchable DropDown Plugin Demo</title>
 
-	<!-- BEGIN syntax highlighter -->
-	<script type="text/javascript" src="sh/shCore.js"></script>
-	<script type="text/javascript" src="sh/shBrushJScript.js"></script>
-	<link type="text/css" rel="stylesheet" href="sh/shCore.css"/>
-	<link type="text/css" rel="stylesheet" href="sh/shThemeDefault.css"/>
-	<script type="text/javascript">
-		SyntaxHighlighter.all();
-	</script>
-	<!-- END syntax highlighter -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="jquery.searchabledropdown-1.0.9.min.js"></script>
 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	<script type="text/javascript" src="jquery.searchabledropdown-1.0.8.min.js"></script>
-	
-	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("select").searchable();
+	<script>
+	$(function(){
+		$("select").searchable();
+	});
+
+
+	// demo functions
+	$(function(){
+		$("#value").html($("#myselect :selected").text() + " (VALUE: " + $("#myselect").val() + ")");
+		$("select").on("change", function(){
+			$("#value").html(this.options[this.selectedIndex].text + " (VALUE: " + this.value + ")");
 		});
-	
-	
-		// demo functions
-		$(document).ready(function() {
-			$("#value").html($("#myselect :selected").text() + " (VALUE: " + $("#myselect").val() + ")");
-			$("select").change(function(){
-				$("#value").html(this.options[this.selectedIndex].text + " (VALUE: " + this.value + ")");
-			});
+	});
+
+	function modifySelect() {
+		$("select").get(0).selectedIndex = 5;
+	}
+
+	function appendSelectOption(str) {
+		$("select").append("<option value=\"" + str + "\">" + str + "</option>");
+	}
+
+	function applyOptions() {
+		$("select").searchable({
+			maxListSize: $("#maxListSize").val(),
+			maxMultiMatch: $("#maxMultiMatch").val(),
+			latency: $("#latency").val(),
+			exactMatch: $("#exactMatch").get(0).checked,
+			wildcards: $("#wildcards").get(0).checked,
+			ignoreCase: $("#ignoreCase").get(0).checked
 		});
-	
-		function modifySelect() {
-			$("select").get(0).selectedIndex = 5;
-		}
-	
-		function appendSelectOption(str) {
-			$("select").append("<option value=\"" + str + "\">" + str + "</option>");
-		}
-	
-		function applyOptions() {			  
-			$("select").searchable({
-				maxListSize: $("#maxListSize").val(),
-				maxMultiMatch: $("#maxMultiMatch").val(),
-				latency: $("#latency").val(),
-				exactMatch: $("#exactMatch").get(0).checked,
-				wildcards: $("#wildcards").get(0).checked,
-				ignoreCase: $("#ignoreCase").get(0).checked
-			});
-	
-			alert(
-				"OPTIONS\n---------------------------\n" + 
-				"maxListSize: " + $("#maxListSize").val() + "\n" +
-				"maxMultiMatch: " + $("#maxMultiMatch").val() + "\n" +
-				"exactMatch: " + $("#exactMatch").get(0).checked + "\n"+
-				"wildcards: " + $("#wildcards").get(0).checked + "\n" +
-				"ignoreCase: " + $("#ignoreCase").get(0).checked + "\n" +
-				"latency: " + $("#latency").val()
-			);
-		}
+
+		alert(
+			"OPTIONS\n---------------------------\n" +
+			"maxListSize: " + $("#maxListSize").val() + "\n" +
+			"maxMultiMatch: " + $("#maxMultiMatch").val() + "\n" +
+			"exactMatch: " + $("#exactMatch").get(0).checked + "\n"+
+			"wildcards: " + $("#wildcards").get(0).checked + "\n" +
+			"ignoreCase: " + $("#ignoreCase").get(0).checked + "\n" +
+			"latency: " + $("#latency").val()
+		);
+	}
 	</script>
-	<style type="text/css">
-		body {
-			font-family: sans-serif;
-			font-size: 13px;
-		}
-		
-		h1 {
-			font-size: 20px;
-		}
-		
-		h2 {
-			font-size: 16px;
-			margin: 50px 0 8px 0;
-		}
-		
-		h3 {
-			font-size: 14px;
-		}
+	<style>
+	body {font-family:sans-serif; font-size:13px; }
+	h1 {font-size:20px; }
+	h2 {font-size:16px; margin:50px 0 8px 0; }
+	h3 {font-size:14px; }
 	</style>
 </head>
 <body>
 	<h1>jQuery Searchable DropDown Plugin Demo</h1>
-	
-	<p>
-		A jQuery plugin which extends normal dropdown (select) elements to be searchable.
-	</p>
-	<p>
-		Project homepage: <a href="https://sourceforge.net/projects/jsearchdropdown/">https://sourceforge.net/projects/jsearchdropdown/</a>
-	</p>
-	<p>
-		The drop down below contains more than 1000 entries. Try searching.
-	</p> 
+
+	<p>A jQuery plugin which extends normal dropdown (select) elements to be searchable.</p>
+
+	<p>Project homepage: <a href="https://sourceforge.net/projects/jsearchdropdown/">https://sourceforge.net/projects/jsearchdropdown/</a></p>
+
+	<p>The drop down below contains more than 1000 entries. Try searching.</p>
 	<br/><br/>
 	<form>
 		<select id="myselect">
@@ -1103,12 +1075,11 @@
 			<option value="1006">Zu den Krugwiesen</option>
 			<option value="1007">Zum Hechtgraben</option>
 		</select>
-		<p>
-			CURRENT SELECTED: <span id="value">&nbsp;</span>
-		</p>
-		<h2>
-			Test options:
-		</h2>
+
+		<p>CURRENT SELECTED: <span id="value">&nbsp;</span></p>
+
+		<h2>Test options:</h2>
+
 		<p>
 			<select id="maxListSize">
 				<option value="50">25</option>
@@ -1140,30 +1111,16 @@
 			</select>
 			Latency before search starts
 		</p>
-		<p>
-			<input type="checkbox" id="exactMatch" value="true" /> Exact match
-		</p>
-		<p>
-			<input type="checkbox" id="wildcards" value="true" checked="checked"/> Wildcard character support (* = any char, ? = one char) 
-		</p>
-		<p>
-			<input type="checkbox" id="ignoreCase" value="true" checked="checked"/> Ignore case sensitivity
-		</p>
-		<p>
-			<input type="button" onclick="applyOptions();" value="Apply"/>
-		</p>
-		
-		<h2>
-			Modify select object on runtime:
-		</h2>
-		<p>
-			<input type="button" onclick="modifySelect();" value="Change selectedIndex to 5" />
-		</p>
-		<p>			
-			Append new option: <input type="text" id="str" value="" /> <input type="button" onclick="appendSelectOption($('#str').val());" value="append" />
-		</p>		
+		<p><input type="checkbox" id="exactMatch" value="true" /> Exact match</p>
+		<p><input type="checkbox" id="wildcards" value="true" checked="checked"/> Wildcard character support (* = any char, ? = one char)</p>
+		<p><input type="checkbox" id="ignoreCase" value="true" checked="checked"/> Ignore case sensitivity</p>
+		<p><input type="button" onclick="applyOptions();" value="Apply"/></p>
+
+		<h2>Modify select object on runtime:</h2>
+		<p><input type="button" onclick="modifySelect();" value="Change selectedIndex to 5" /></p>
+		<p>Append new option: <input type="text" id="str" value="" /> <input type="button" onclick="appendSelectOption($('#str').val());" value="append" /></p>
 	</form>
-		
+
 	<h2>Features:</h2>
 	<ul>
 		<li>Tested in IE 7.x, IE 8.x, Firefox 3.5.x, Safari 4.x, Opera 10.x, Chrome 3.x</li>
@@ -1173,19 +1130,19 @@
 		<li>Use key ESCAPE to abort your searching</li>
 		<li>NOTE: There is no support for IE 6.x or lower IE versions</li>
 	</ul>
-	
-	
+
+
 	<h2>Usage:</h2>
-	
+
 	<h3>Simple Setup</h3>
-	<pre class="brush: js;">
+	<pre>
 	$(document).ready(function() {
 		$("select").searchable();
 	});
 	</pre>
-	
+
 	<h3>Advanced Setup</h3>
-	<pre class="brush: js;">
+	<pre>
 	$(document).ready(function() {
 		$("select").searchable({
 			maxListSize: 100,						// if list size are less than maxListSize, show them all
@@ -1194,11 +1151,11 @@
 			wildcards: true,						// Support for wildcard characters (*, ?)
 			ignoreCase: true,						// Ignore case sensitivity
 			latency: 200,							// how many millis to wait until starting search
-			warnMultiMatch: 'top {0} matches ...',	// string to append to a list of entries cut short by maxMultiMatch 
+			warnMultiMatch: 'top {0} matches ...',	// string to append to a list of entries cut short by maxMultiMatch
 			warnNoMatch: 'no matches ...',			// string to show in the list when no entries match
 			zIndex: 'auto'							// zIndex for elements generated by this plugin
-	   	});
+		});
 	});
-			</pre>
+	</pre>
 </body>
 </html>
