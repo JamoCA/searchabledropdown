@@ -6,12 +6,29 @@ The drop down below contains more than 1000 entries. Try searching.
 
 ## Features:
 
-- Tested in IE 7.x, IE 8.x, Firefox 3.5.x, Safari 4.x, Opera 10.x, Chrome 3.x
 - Searching in select boxes without losing normal select box behaviors
 - Support modification of select object at runtime
 - Use keys to navigate through the list of results
 - Use key ESCAPE to abort your searching
 - NOTE: There is no support for IE 6.x or lower IE versions
+
+## 1.0.9 Changelog (2026-03-09)
+
+- Removed all $.browser usage (removed in jQuery 1.9); dropped MSIE, Opera, legacy Safari/Chrome, and Mozilla-specific CSS branches
+- Replaced all shorthand event binders (.click(), .blur(), etc.) with .on() - shorthand binders were removed in jQuery 4.0
+- Replaced $.trim() with native String.prototype.trim() (removed in jQuery 4.0)
+- Replaced :first pseudo-selector with .children().first() (removed in jQuery 4.0)
+- Replaced this.size() with this.length (removed in jQuery 3.0)
+- Fixed $.extend() mutating plugin.defaults across calls
+- Fixed searching(): search string now preserved separately before being overwritten by the RegExp object; RegExp flags arg changed from null to ""
+- Fixed undefined `options` variable reference in $.meta branch
+- Replaced .attr("disabled", ...) / .attr("disabled") with .prop()
+- Replaced new Array() with [] literals
+- Replaced new Number() wrapper object with a plain numeric primitive
+- Replaced "lang" attribute (a real HTML attribute) with data-sdd-idx
+- Replaced jQuery.inArray() with native Array.prototype.indexOf()
+- Removed trailing semicolons from function declarations
+- Removed dead $.meta plugin branch
 
 ## Usage:
 
@@ -38,3 +55,4 @@ $(document).ready(function() {
 	});
 });
 ```
+
